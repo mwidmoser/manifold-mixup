@@ -16,7 +16,7 @@
 | {0, 1}            | **52.40%**   |
 | {0, 2}            | 50.12%   |
 | {1, 2}            | 51.09%   |
-| {1, 2, 3}         | 51.86%   |
+| {0, 1, 2}         | 51.86%   |
 
 ### Questions
 * They claim that manifold mixup works best in the first few (or all) layers (not in the last ones). Consider Table 6 in the paper.
