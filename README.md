@@ -20,7 +20,13 @@
 +: 100 epochs, LR-step-scheduler, no-crop
 
 ## Todo
-* ...
+* Try different alpha values, maybe also time the training
+* Before flipping, crop the images (`transform.random.crop` with padding=4)
+* Don't crop+flip testing data
+* Cosine-based learning rate scheduler
+* Try training longer (300, 1000)
+* Plot and monitor test error, loss etc
+    * look at changes in test error when already at 100% accuracy
 
 ---
 
