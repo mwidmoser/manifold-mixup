@@ -21,7 +21,7 @@
 
 ## Todo
 * Try different alpha values, maybe also time the training
-* Before flipping, crop the images (`transform.random.crop` with padding=4)
+* Before flipping, crop the images (`transform.randomcrop` with padding=4)
 * Don't crop+flip testing data
 * Cosine-based learning rate scheduler
 * Try training longer (300, 1000)
