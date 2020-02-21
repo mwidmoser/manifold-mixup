@@ -1,0 +1,22 @@
+\section{Introduction}
+\label{sec:introduction}
+
+Deep neural networks often give incorrect but still highly confident predictions when evaluated on data which only comes from a slightly different distribution than examples from the training data.
+This can already be achieved by marginal perturbations that are imperceptible to the human eye.
+Such inputs, also known as \textit{adversarial examples}, may be a serious hazard when machine learning systems are used in security-sensitive applications.
+
+To address this issue, the training data can be extended by similar but different examples.
+This method is called \textit{data augmentation} and leads to better generalization~\cite{simard96}.
+However, data augmentation depends on the dataset, and thus human knowledge is needed.
+
+Mixup is a simple data-agnostic data augmentation procedure that increases the robustness of neural networks when facing adversarial examples by extending the training distribution~\cite{zhang17}.
+Mixup provides convex combinations of example/label-pairs where the network additionally will be trained on.
+This regularizes the neural network to favor simple linear behavior in-between training examples.
+
+Basically, mixup constructs virtual training examples $(\tilde{x}, \tilde{y})$ such that
+\begin{align}
+    \tilde{x} &= \lambda x_i + (1 - \lambda) x_j \\
+    \tilde{y} &= \lambda y_i + (1 - \lambda) y_j
+\end{align}
+where $x_i$, $x_j$ are raw input vectors, $y_i$, $y_j$ are one-hot label encodings and $\lambda \sim \text{Beta}(\alpha, \alpha)$ is the mixing coefficient sampled from the Beta distribution dependent on $\alpha$.
+$\alpha = 1.0$ is equivalent to sampling $\lambda \sim U(0,1)$.
