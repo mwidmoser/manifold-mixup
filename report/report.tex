@@ -1,12 +1,39 @@
-\documentclass{article}
+\documentclass[11pt]{article}
 
 \usepackage[utf8]{inputenc}
-\usepackage{amsmath,amssymb,color,enumitem,fancyvrb,float,hyperref,graphicx,geometry,lipsum,listings,mathtools,nicefrac,url}
+\usepackage{amsmath,amssymb,color,enumitem,fancyvrb,float,hyperref,graphicx,geometry,listings,mathtools,nicefrac,url}
 \usepackage[english]{babel}
 \usepackage[tt=false,type1=true]{libertine}
 \usepackage[varqu]{zi4}
-\usepackage[libertine]{newtxmath}
 \usepackage[numbib]{tocbibind}
+\usepackage{parskip}
+
+\usepackage{listings}     
+\usepackage{lstautogobble}
+
+\lstset{
+    autogobble,
+    language=python,
+    columns=fullflexible,
+    showspaces=false,
+    showtabs=false,
+    breaklines=true,
+    showstringspaces=false,
+    breakatwhitespace=true,
+    escapeinside={(*@}{@*)},
+    basicstyle=\ttfamily\footnotesize,
+    frame=l,
+    framesep=12pt,
+    xleftmargin=12pt,
+    tabsize=2,
+    captionpos=b,
+    numbers=left,
+    xleftmargin=4em,
+    framexleftmargin=1em
+}
+
+%\lstnewenvironment{code}[2]{\lstset{caption=#1, label=#2 , keepspaces=true}\minipage{\linewidth}\smallskip}{\medskip\endminipage}
+\lstnewenvironment{code}[2]{\lstset{caption=#1, label=#2 , keepspaces=true}\smallskip}{\medskip}
 
 \renewcommand{\footnotesize}{\scriptsize}
 
@@ -20,7 +47,7 @@
  	right=35mm,
 }
 
-\title{\vspace*{-3em}\huge \textbf{Investigating Manifold Mixup}\\[0.25em] \large \textit{Computer Vision WS19/20}\\[0.25em]}
+\title{\vspace*{-3em}\huge \textbf{Investigating Manifold Mixup}\\[0.25em] \large \textit{Computer Vision WS19/20}\\[0.5em]}
 \date{}
 \author{
 	Julian Kanzler \and
@@ -32,15 +59,18 @@
 \maketitle
 
 \begin{abstract}
-	\lipsum[1]
+	\noindent In this work, we investigate manifold mixup, a simple regularizer that encourages deep neural networks to predict less confidently on adversarial examples. 
+    We evaluate manifold mixup on a subset of CIFAR-10, where we only use ten percent of the training examples.
+    In our experiments, we first attempt to get the baseline high by considering different preprocessing steps, learning rate schedulers and hyperparameters.
+    Then, manifold mixup with different $\alpha$-values, which controls the strength of interpolation between feature-target pairs, is applied.
+    We find \dots
 \end{abstract}
 
-\section{Introduction}
-Manifold mixup~\cite{verma19}
-
-\section{Experiments}
-
-\section{Summary}
+\input{01introduction}
+\input{02manifoldmixup}
+\input{03Baseline}
+\input{04Experiments}
+\input{05Summary}
 
 \bibliography{references}{}
 \bibliographystyle{apalike}
