@@ -1,0 +1,8 @@
+\section{Conclusion}
+\label{sec:conclusion}
+
+In this report, we have explored the ability of the neural network described in section~\ref{sec:baseline} to correctly assign labels to images from the CIFAR-10 dataset~\cite{krizh09} when trained only on a very small number of training examples. First, different learning rate schedulers were evaluated as well as the impact of changes in momentum, weight decay and the learning rate. Ultimately, a test set accuracy of $56.07\%$ was reached.
+
+Based on this, the regularization technique manifold mixup~\cite{verma19} was applied during training to observe further increases in accuracy. The influence of hyperparameters of mixup was evaluated, and in our experiments (1) applying mixup always led to better labeling performance and (2) manifold mixup yielded even better results than input mixup only. In general, mixup at the input and at the last layer gave highest accuracy. Additionally, our results suggest that a high probability for strong mixup (i.e., taking half of the first image and half of the second) is advantageous.
+
+Overall, applying manifold mixup when training with only 50 images per class led to an increase of $5.66\%$ in test set accuracy compared to our best baseline performance, and a final accuracy of $61.73\%$. This easy-to-implement regularization technique showed to be an effective tool for such classification tasks.

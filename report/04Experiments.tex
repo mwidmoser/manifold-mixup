@@ -1,4 +1,150 @@
 \section{Experiments}
 \label{sec:experiments}
 
-\dots
+We apply manifold mixup regularization on our best baseline model that is summarized in table~\ref{tab:baseline}.
+We experimented with different $\alpha$ values and all possible combinations of eligible layers $\mathcal{S}$. 
+The first layers of the three blocks of our network architecture are the set of all eligible layers.
+Furthermore, $\mathcal{S} = \{0\}$ means input mixup as in~\cite{zhang17}.
+If $|\mathcal{S}| > 1$ then a layer $k \in \mathcal{S}$ is chosen at random before a minibatch is processed during training as done in~\cite{verma19}.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{ccccccc}
+        \toprule
+        epochs & optimizer & lr & momentum & weight decay & $t_0$ & accuracy \\
+        \midrule
+        $400$ & SGD & $0.1$ & $0.9$ & $1e^{-3}$ & $10$ & $56.07\%$ \\
+        \bottomrule
+    \end{tabular}
+    \caption{Our final baseline model}
+    \label{tab:baseline}
+\end{table}
+
+Table~\ref{tab:experiments} lists our evaluations with a multitude of different $\alpha$-values and eligible layers $\mathcal{S}$. As described in section~\ref{sec:introduction}, $\alpha$ controls the strength of the mixup applied to one randomly selected layer from the set of eligible layers $\mathcal{S}$.
+
+Our results show that applying manifold mixup regularization has a positive effect regardless of where and how strongly applied compared to our baseline. Allowing mixup at the last layer only yields the least improvements. On the other hand, in most experiments allowing mixup at both, the input layer and the last layer, outperformed all other combinations of eligible layers with an increase in accuracy of $2.74\%$ to $5.66\%$ compared to our baseline model.
+
+When looking at the influence of the hyperparameter $\alpha$, the overall best performance  can be observed at $\alpha=4.0$, with an average accuracy of $60,17\%$, and $\alpha=2.0$ with $60.12\%$. Considering that $\alpha$ controls the mixup strength based on the beta-distribution, our findings suggest that a strong mixup, i.e., a mixup factor $\lambda$ with a high probability of being close to $0.5$, has indeed a positive influence on the results.
+% interactive beta distribution thingy: https://demonstrations.wolfram.com/BetaDistribution/
+
+The overall best test set accuracy was achieved with the configuration of $\mathcal{S}=\{0,2\}$ and $\alpha=4.0$, with an increase in accuracy of $5.66\%$ compared to the baseline, and an improvement of $0.97\%$ compared to our best accuracy using only input mixup ($\mathcal{S}=\{0\}$).
+
+
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{c|ccccccc}
+        \toprule
+        \multirow{2}{*}{$\mathcal{S}$} & \multicolumn{7}{|c}{$\alpha$} \\
+        & 0.2 & 0.5 & 1.0 & 1.5 & 2.0 & 4.0 & 5.0\\ 
+        \midrule
+        $\{ 0 \}$       & $58.66$ & $59.06$ & $60.36$ & $60.76$ & $60.41$ & $59.91$ & $60.33$ \\
+        $\{ 1 \}$       & $58.07$ & $58.87$ & $59.09$ & $58.86$ & $59.50$ & $59.01$ & $58.43$\\
+        $\{ 2 \}$       & $57.51$ & $57.38$ & $57.46$ & $57.80$ & $57.86$ & $58.36$ & $57.79$\\
+        $\{ 0, 1 \}$    & $58.45$ & $59.64$ & $60.08$ & $\bm{61.09}$ & $61.20$ & $60.96$ & $61.21$ \\
+        $\{ 0, 2 \}$    & $\bm{58.80}$ & $\bm{59.76}$ & $60.67$ & $60.16$ & $\bm{61.33}$ & $\bm{61.73}$ & $\bm{61.61}$\\
+        $\{ 1, 2 \}$    & $57.73$ & $58.56$ & $59.37$ & $59.32$ & $59.69$ & $59.79$ & $59.37$\\
+        $\{ 0, 1, 2 \}$ & $58.29$ & $59.25$ & $\bm{61.13}$ & $60.76$ & $60.87$ & $61.44$ & $61.05$\\
+        
+        \bottomrule
+    \end{tabular}
+    \caption{Test set accuracies using manifold mixup regularization with different mixing coefficients $\alpha$.}
+    \label{tab:experiments}
+\end{table}
+
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ %
+% ~~~~~~~~~ NEW Results ~~~~~~~~~~ %
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ %
+
+% alpha=0.2
+    % Mixup Config: [True, False, False]
+    % Accuracy after 5 iterations: 58.66%
+    % Mixup Config: [False, True, False]
+    % Accuracy after 5 iterations: 58.07%
+    % Mixup Config: [False, False, True]
+    % Accuracy after 5 iterations: 57.51%
+    % Mixup Config: [True, True, False]
+    % Accuracy after 5 iterations: 58.45%
+    % Mixup Config: [True, False, True]
+    % Accuracy after 5 iterations: 58.80%
+    % Mixup Config: [False, True, True]
+    % Accuracy after 5 iterations: 57.73%
+    % Mixup Config: [True, True, True]
+    % Accuracy after 5 iterations: 58.29%
+
+% alpha=0.5
+    % Mixup Config: [True, False, False]
+    % Accuracy after 5 iterations: 59.06%
+    % Mixup Config: [False, True, False]
+    % Accuracy after 5 iterations: 58.87%
+    % Mixup Config: [False, False, True]
+    % Accuracy after 5 iterations: 57.38%
+    % Mixup Config: [True, True, False]
+    % Accuracy after 5 iterations: 59.64%
+    % Mixup Config: [True, False, True]
+    % Accuracy after 5 iterations: 59.76%
+    % Mixup Config: [False, True, True]
+    % Accuracy after 5 iterations: 58.56%
+    % Mixup Config: [True, True, True]
+    % Accuracy after 5 iterations: 59.25%
+    
+% alpha=1.0
+    % Mixup Config: [True, False, False]
+    % Accuracy after 5 iterations: 60.36%
+    % Mixup Config: [False, True, False]
+    % Accuracy after 5 iterations: 59.09%
+    % Mixup Config: [False, False, True]
+    % Accuracy after 5 iterations: 57.46%
+    % Mixup Config: [True, True, False]
+    % Accuracy after 5 iterations: 60.08%
+    % Mixup Config: [True, False, True]
+    % Accuracy after 5 iterations: 60.67%
+    % Mixup Config: [False, True, True]
+    % Accuracy after 5 iterations: 59.37%
+    % Mixup Config: [True, True, True]
+    % Accuracy after 5 iterations: 61.13%
+
+
+% alpha=1.5
+    % Mixup Config: [True, False, False]
+    % Accuracy after 5 iterations: 60.76%
+    % Mixup Config: [False, True, False]
+    % Accuracy after 5 iterations: 58.86%
+    % Mixup Config: [False, False, True]
+    % Accuracy after 5 iterations: 57.80%
+    % Mixup Config: [True, True, False]
+    % Accuracy after 5 iterations: 61.09%
+    % Mixup Config: [True, False, True]
+    % Accuracy after 5 iterations: 60.16%
+    % Mixup Config: [False, True, True]
+    % Accuracy after 5 iterations: 59.32%
+    % Mixup Config: [True, True, True]
+    % Accuracy after 5 iterations: 60.76%
+
+% alpha=2.0
+    % Mixup Config: [True, False, False]
+    % Accuracy after 5 iterations: 60.41%
+    % Mixup Config: [False, True, False]
+    % Accuracy after 5 iterations: 59.50%
+    % Mixup Config: [False, False, True]
+    % Accuracy after 5 iterations: 57.86%
+    % Mixup Config: [True, True, False]
+    % Accuracy after 5 iterations: 61.20%
+    % Mixup Config: [True, False, True]
+    % Accuracy after 5 iterations: 61.33%
+    % Mixup Config: [False, True, True]
+    % Accuracy after 5 iterations: 59.69%
+    % Mixup Config: [True, True, True]
+    % Accuracy after 5 iterations: 60.87%
+    
+% alpha=4.0
+%     Mixup Config: [True, False, False]
+%     Accuracy after 5 iterations: 59.91%
+%     Mixup Config: [False, True, False]
+%     Accuracy after 5 iterations: 59.01%
+%     Mixup Config: [False, False, True]
+%     Accuracy after 5 iterations: 58.36%
+%     Mixup Config: [True, True, False]
+%     Accuracy after 5 iterations: 60.96%
+%     Mixup Config: [True, False, True]
+%     Accuracy after 5 iterations: 61.73%
